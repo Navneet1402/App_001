@@ -3,19 +3,29 @@ package com.example.app_001
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.app_001.ui.theme.App_001Theme
 
 class MainActivity : ComponentActivity() {
@@ -24,21 +34,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             App_001Theme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background)
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                )
                 {
-                    Column (
-                        modifier =Modifier
-                            .background(color= Color.Cyan),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    )
-                    {
-                        Image painter = painterResource(id = )
-                        contentDescription=null
-                        Text(text = "Android",
-                             style = MaterialTheme.typography.displayLarge)
-                        Text(text = "version 14", style = MaterialTheme.typography.displaySmall)
-                    }
+                    WelcomeScreen()
 
                 }
             }
@@ -46,12 +47,55 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    App_001Theme {
+fun WelcomeScreen() {
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Green)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
+                )
+                Text(text = "Jetpack App", fontSize = 24.sp)
+            }
+        }
+    ) {
+        Column(
+            modifier = Modifier.padding(it)
+        ) {
+            LazyColumn(contentPadding = PaddingValues(16.dp),
+                ){
+                items(100){
+                    Column {
+                        Text(text = "Item $it", fontSize = 14.sp)
+                        Text(
+                            text = "description of item",
+                            fontSize = 10.sp
+                        )
+
+                    }
+                }
+            }
+
+        }
 
     }
+
+}
+
+
+@Preview
+@Composable
+fun WelcomeScreenPreview() {
+    App_001Theme {
+        WelcomeScreen()
+    }
+
 }
